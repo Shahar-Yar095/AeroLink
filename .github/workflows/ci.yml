@@ -27,7 +27,7 @@ jobs:
                       Write-Error "Syntax error found in $($script): $($errors)"
                       exit 1
                   } else {
-                      Write-Host "✓ $script syntax is clean and valid." -ForegroundColor Green
+                      Write-Host "[OK] $script syntax is clean and valid." -ForegroundColor Green
                   }
               }
           }
