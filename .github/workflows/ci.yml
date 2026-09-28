@@ -1,0 +1,33 @@
+name: AeroLink CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  validate:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate PowerShell Script Syntax
+        shell: powershell
+        run: |
+          $scripts = @("app_ui.ps1", "fast_backup.ps1")
+          foreach ($script in $scripts) {
+              if (Test-Path $script) {
+                  Write-Host "Validating syntax: $script"
+                  $errors = $null
+                  $ast = [System.Management.Automation.Language.Parser]::ParseFile($script, [ref]$null, [ref]$errors)
+                  if ($errors) {
+                      Write-Error "Syntax error found in $($script): $($errors)"
+                      exit 1
+                  } else {
+                      Write-Host "✓ $script syntax is clean and valid." -ForegroundColor Green
+                  }
+              }
+          }

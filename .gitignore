@@ -1,0 +1,13 @@
+# Backup outputs & logs
+*Transfer_Log_*.txt
+*.log
+*Backup/
+*AeroLink_Backup/
+
+# System and editor files
+.DS_Store
+Thumbs.db
+*.tmp
+*.bak
+.vscode/
+.idea/
